@@ -23,7 +23,7 @@ const rules = [
   //highlights
   [
     /(`)(\s?[^\n,]+\s?)(`)/g,
-    '<a style="background-color:grey;color:black;text-decoration: none;border-radius: 3px;padding:0 2px;">$2</a>',
+    '<code style="background-color:grey;color:black;text-decoration: none;border-radius: 3px;padding:0 2px;">$2</code>',
   ],
 
   //Lists
