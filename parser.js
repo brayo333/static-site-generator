@@ -4,8 +4,8 @@ const { rules } = require("./rules");
 
 const EXTENSION = ".md";
 
-let posts = [];
-let pages = [];
+var posts = [];
+var pages = [];
 
 // The function provides html templating based on whether the source md file was meant for a post or a page
 function HTMLTemplate(type, htmlContent) {
@@ -132,15 +132,51 @@ function loopDirectoryMDFiles(directoryName) {
   });
 }
 
-function writeIndexHTML() {
-  let pagesLink;
-  let indexFile
+async function checkForFiles() {
+  var contents = [];
+  try {
+    const files = await fs.promises.readdir("pages");
 
-  pages.forEach(([page]) => {
-    pagesLink = pagesLink.concat(
-     "<a href=`/${page.name}` class=`capitalize`>`${page.name}`</a>"
-    );
+    for (let file of files) {
+      try {
+        if (path.parse(file).ext === EXTENSION) {
+          // if (directoryName == "pages")
+          contents.push([ path.parse(file).name ]);
+          // console.log(path.parse(file).name);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    return contents;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function writeIndexHTML() {
+  var indexFile;
+  var links = "<a href='/'>Home</a><a href='/'>Home</a>";
+  var files;
+
+  // console.log(checkForFiles());
+  checkForFiles().then((data) => {
+    console.log(data);
+
+    // data.forEach(([page]) => {
+    //   links = links.concat(
+    //     "<a href=",
+    //     `/${page}`,
+    //     " class='capitalize'>",
+    //     page,
+    //     "</a>"
+    //   );
+    //   console.log(page);
+    // });
   });
+
+  
+
 
   indexFile = `<!DOCTYPE html>
                         <html lang="en">
@@ -155,12 +191,12 @@ function writeIndexHTML() {
                               <nav class="col-span-1 h-screen p-5 flex flex-col">
                                 <div class="w-full h-full flex flex-col overflow-y-auto">
                                   <a href="/">Home</a>
-                                  ${pagesLink}
+                                  ${links}
                                 </div>
                               </nav>
 
                               <div class="col-span-4 w-full p-5 flex flex-col">
-                                ${posts.forEach((post) => {
+                                ${pages.forEach((post) => {
                                   "<p>Hello there</p>";
                                 })}
                               </div>
