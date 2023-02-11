@@ -4,66 +4,104 @@ const { rules } = require("./rules");
 
 const EXTENSION = ".md";
 
-var posts = [];
-var pages = [];
+function seperateWord(value) {
+  var title = "";
+  var temp = value.split("-");
+  title = temp.join(" ");
+
+  return title;
+}
+
+// Function used for paths creation on the html files
+async function checkForFiles() {
+  var contents = [[], []];
+  try {
+    const pages = await fs.promises.readdir("pages");
+
+    for (let file of pages) {
+      try {
+        if (path.parse(file).ext === EXTENSION) {
+          // if (directoryName == "pages")
+          contents[0].push({ name: path.parse(file).name });
+          // console.log(path.parse(file).name);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+
+    const posts = await fs.promises.readdir("posts");
+
+    for (let file of posts) {
+      try {
+        if (path.parse(file).ext === EXTENSION) {
+          // if (directoryName == "pages")
+          contents[1].push({ name: path.parse(file).name });
+          // console.log(path.parse(file).name);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+
+    return contents;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 // The function provides html templating based on whether the source md file was meant for a post or a page
-function HTMLTemplate(type, htmlContent) {
+function HTMLTemplate(type, htmlContent, fileName) {
   let finalContent;
+  let pageLinks = "";
 
-  switch (type) {
-    case "pages":
+  checkForFiles().then(
+    (data) => {
+      for (let i = 0; i < data[0].length; i++) {
+        pageLinks = pageLinks.concat(
+          "<a href=",
+          `/${data[0][i].name}`,
+          " class='capitalize mt-3'>",
+          seperateWord(data[0][i].name),
+          "</a>"
+        );
+      }
+
       finalContent = `<!DOCTYPE html>
                         <html lang="en">
                           <head>
                             <meta charset="utf-8" />
-                            <title>This is a page</title>
+                            <title>This is a ${
+                              type == "posts" ? "post" : "page"
+                            }</title>
                             <script src="https://cdn.tailwindcss.com"></script>
                           </head>
 
                           <body>
-                            <div class="w-full p-5">
-                              ${htmlContent}
+                            <div class="w-full grid grid-col grid-cols-5 gap-3">
+                              <nav class="col-span-1 h-screen p-5 flex flex-col">
+                                <div class="w-full h-full flex flex-col overflow-y-auto">
+                                  <a href="/">Home</a>
+                                  ${pageLinks}
+                                </div>
+                              </nav>
+
+                              <div class="col-span-4 w-full max-w-7xl p-5 flex flex-col">
+                                ${htmlContent}
+                              </div>
                             </div>
                           </body>
                       </html>`;
-      break;
 
-    case "posts":
-      finalContent = `<!DOCTYPE html>
-                        <html lang="en">
-                          <head>
-                            <meta charset="utf-8" />
-                            <title>This is a post</title>
-                            <script src="https://cdn.tailwindcss.com"></script>
-                          </head>
-
-                          <body>
-                            <div class="w-full p-5">
-                              ${htmlContent}
-                            </div>
-                          </body>
-                      </html>`;
-      break;
-
-    default:
-      finalContent = `<!DOCTYPE html>
-                        <html lang="en">
-                          <head>
-                            <meta charset="utf-8" />
-                            <title>This is something</title>
-                            <script src="https://cdn.tailwindcss.com"></script>
-                          </head>
-
-                          <body>
-                            <div class="w-full p-5">
-                              ${htmlContent}
-                            </div>
-                          </body>
-                      </html>`;
-  }
-
-  return finalContent;
+      writeHTMLFile(
+        `public/${type}/${fileName}.html`,
+        finalContent
+      );
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
 }
 
 // The function adds the html content passed to it after conversion into a html file with file path specified
@@ -91,11 +129,6 @@ function loopDirectoryMDFiles(directoryName) {
 
     for (let file of files) {
       if (path.parse(file).ext === EXTENSION) {
-        if (directoryName == "pages")
-          pages.push({ name: path.parse(file).name });
-        if (directoryName == "posts")
-          posts.push({ name: path.parse(file).name });
-
         fs.open(`${directoryName}/${file}`, "r", function (err, fd) {
           if (err) {
             return console.error(err);
@@ -114,12 +147,12 @@ function loopDirectoryMDFiles(directoryName) {
                 html = html.replace(rule, template);
               });
 
-              html = HTMLTemplate(directoryName, html);
+              html = HTMLTemplate(directoryName, html, path.parse(file).name);
 
-              writeHTMLFile(
-                `public/${directoryName}/${path.parse(file).name}.html`,
-                html
-              );
+              // writeHTMLFile(
+              //   `public/${directoryName}/${path.parse(file).name}.html`,
+              //   html
+              // );
             }
 
             fs.close(fd, function (err) {
@@ -132,53 +165,35 @@ function loopDirectoryMDFiles(directoryName) {
   });
 }
 
-async function checkForFiles() {
-  var contents = [];
-  try {
-    const files = await fs.promises.readdir("pages");
-
-    for (let file of files) {
-      try {
-        if (path.parse(file).ext === EXTENSION) {
-          // if (directoryName == "pages")
-          contents.push([ path.parse(file).name ]);
-          // console.log(path.parse(file).name);
-        }
-      } catch (error) {
-        console.log(error.message);
-      }
-    }
-    return contents;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
+// Function for writing the home page
 function writeIndexHTML() {
   var indexFile;
-  var links = "<a href='/'>Home</a><a href='/'>Home</a>";
-  var files;
+  var pageLinks = "";
+  var postsLinks = "";
 
-  // console.log(checkForFiles());
-  checkForFiles().then((data) => {
-    console.log(data);
+  checkForFiles().then(
+    (data) => {
+      for (let i = 0; i < data[0].length; i++) {
+        pageLinks = pageLinks.concat(
+          "<a href=",
+          `/${data[0][i].name}`,
+          " class='capitalize mt-3'>",
+          seperateWord(data[0][i].name),
+          "</a>"
+        );
+      }
 
-    // data.forEach(([page]) => {
-    //   links = links.concat(
-    //     "<a href=",
-    //     `/${page}`,
-    //     " class='capitalize'>",
-    //     page,
-    //     "</a>"
-    //   );
-    //   console.log(page);
-    // });
-  });
+      for (let i = 0; i < data[1].length; i++) {
+        postsLinks = postsLinks.concat(
+          "<div class='w-full mb-5'><a href=",
+          `/posts/${data[1][i].name}`,
+          " class='flex flex-col capitalize text-xl font-medium'>",
+          seperateWord(data[1][i].name),
+          "<div class='mt-3'><button class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>See post</button></div></a><hr class='h-[2px] mt-2 bg-blue-500' /></div>"
+        );
+      }
 
-  
-
-
-  indexFile = `<!DOCTYPE html>
+      indexFile = `<!DOCTYPE html>
                         <html lang="en">
                           <head>
                             <meta charset="utf-8" />
@@ -191,20 +206,25 @@ function writeIndexHTML() {
                               <nav class="col-span-1 h-screen p-5 flex flex-col">
                                 <div class="w-full h-full flex flex-col overflow-y-auto">
                                   <a href="/">Home</a>
-                                  ${links}
+                                  ${pageLinks}
                                 </div>
                               </nav>
 
-                              <div class="col-span-4 w-full p-5 flex flex-col">
-                                ${pages.forEach((post) => {
-                                  "<p>Hello there</p>";
-                                })}
+                              <div class="col-span-4 w-full max-w-7xl p-5 flex flex-col">
+                                <div class="w-full flex flex-col">
+                                  ${postsLinks}
+                                </div>
                               </div>
                             </div>
                           </body>
                       </html>`;
 
-  writeHTMLFile("public/index.html", indexFile);
+      writeHTMLFile("public/index.html", indexFile);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
 }
 
 // Convert the posts markdown files
@@ -213,5 +233,5 @@ loopDirectoryMDFiles("posts");
 // Convert the pages markdown files
 loopDirectoryMDFiles("pages");
 
-// Write the index file for the HOme page
+// Write the index file for the Home page
 writeIndexHTML();

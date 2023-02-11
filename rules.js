@@ -12,7 +12,7 @@ const rules = [
   [/\*\s?([^\n]+)\*/g, "<i>$1</i>"],
   [/__([^_]+)__/g, "<b>$1</b>"],
   [/_([^_`]+)_/g, "<i>$1</i>"],
-  // [/([^\n]+\n?)/g, "<p>$1</p>"],
+  [/([^\n]+\n?)/g, "<p>$1</p>"],
 
   //links
   [
@@ -22,8 +22,12 @@ const rules = [
 
   //highlights
   [
+    /(`)(`)(`)(\s?[^\n,]+\s?)(`)(`)(`)/g,
+    '<div style="background-color:grey;color:white;text-decoration: none;border-radius: 3px;padding:1px 2px;"><code>$2</code></div>',
+  ],
+  [
     /(`)(\s?[^\n,]+\s?)(`)/g,
-    '<code style="background-color:grey;color:black;text-decoration: none;border-radius: 3px;padding:0 2px;">$2</code>',
+    '<code style="background-color:grey;color:white;text-decoration: none;border-radius: 3px;padding:1px 2px;">$2</code>',
   ],
 
   //Lists
