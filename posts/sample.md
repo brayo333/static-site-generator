@@ -3,6 +3,6 @@
 some stuff happened here
 
 **haha**
-__haha__
-*psyche*
-`code words`
+__haha__ *psyche*
+
+`npm run dev`

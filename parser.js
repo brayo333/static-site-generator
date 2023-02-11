@@ -134,12 +134,12 @@ function loopDirectoryMDFiles(directoryName) {
             return console.error(err);
           }
 
-          var buffr = new Buffer.alloc(1024);
+          var buffr = new Buffer.alloc(10240);
 
           fs.read(fd, buffr, 0, buffr.length, 0, function (err, bytes) {
             if (err) throw err;
 
-            // Print only read bytes to avoid junk.
+            // If md file is not empty write html file
             if (bytes > 0) {
               let html = buffr.slice(0, bytes).toString();
 

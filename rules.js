@@ -1,11 +1,11 @@
 const rules = [
   //header rules
-  [/#{6}\s?([^\n]+)/g, "<h6>$1</h6>"],
-  [/#{5}\s?([^\n]+)/g, "<h5>$1</h5>"],
-  [/#{4}\s?([^\n]+)/g, "<h4>$1</h4>"],
-  [/#{3}\s?([^\n]+)/g, "<h3>$1</h3>"],
-  [/#{2}\s?([^\n]+)/g, "<h2>$1</h2>"],
-  [/#{1}\s?([^\n]+)/g, "<h1>$1</h1>"],
+  [/#{6}\s?([^\n]+)/g, "<h6 class='mb-3 font-medium'>$1</h6>"],
+  [/#{5}\s?([^\n]+)/g, "<h5 class='mb-3 text-lg font-medium'>$1</h5>"],
+  [/#{4}\s?([^\n]+)/g, "<h4 class='mb-3 text-xl font-medium'>$1</h4>"],
+  [/#{3}\s?([^\n]+)/g, "<h3 class='mb-3 capitalize text-2xl font-medium'>$1</h3>"],
+  [/#{2}\s?([^\n]+)/g, "<h2 class='mb-3 capitalize text-3xl font-medium'>$1</h2>"],
+  [/#{1}\s?([^\n]+)/g, "<h1 class='mb-3 capitalize text-4xl font-medium'>$1</h1>"],
 
   //bold, italics and paragragh rules
   [/\*\*\s?([^\n]+)\*\*/g, "<b>$1</b>"],
