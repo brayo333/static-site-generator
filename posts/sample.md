@@ -1,8 +1,17 @@
-### This Post So Fetch
+### Sample markdown file
 
 some stuff happened here
 
-**haha**
-__haha__ *psyche*
+**this should be bold**
+__this should also be bold__ *this should be italics*
 
-`npm run dev`
+This is a `code highlight`
+
+> blockquote text
+
+```
+some more stuff happened
+```
+
++ list item 1
+* list item 2
