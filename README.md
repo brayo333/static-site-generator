@@ -1,10 +1,11 @@
 # Static Site Generator
 
 This repository contains source code of a static site generator that looks for markdown files in a directory and converts their contents into HTML which is then used when creating the HTML files using JavaScript (Node.js).
+
 This project has helped me learn about setting up a server in Node.js, navigating through files and folders in Node.js, working with async/await JavaScript functions & working with regular expressions (Regex).
 
 ## Prerequisites
-+ Node - v 16.0+ (make sure to add the path to the nodejs application in your system environment variables so as to run the node command from anywhere when using the terminal)
++ Node - v16.0.0 + (make sure to add the path to the nodejs application in your system environment variables so as to run the node command from anywhere when using the terminal)
 
 ## Project setup
 First clone the project using the following command `git clone https://github.com/brayo333/static-site-generator.git` in a terminal.
@@ -16,14 +17,14 @@ Finally, start the Node server locally using `node server` or `node server.js` c
 ## Project folder structure
 ```
 ├── pages
-	├── about-us.md
+	├── about.md
 ├── posts
 ├── public
 	├── pages
-        └── .gitignore
+          └── .gitignore
 	├── posts
-        └── .gitignore
-    └── .gitignore
+          └── .gitignore
+	└── .gitignore
 ├── LICENSE.txt
 ├── parser.js
 ├── README.md
@@ -37,10 +38,10 @@ First, some markdown files with content need to exist inside the `./pages` (for 
 After adding your markdown files, run `node parser` to generate its respective HTML file. The last thing left to do is to run `node server`. If the Node server was already running when you ran the `node parser` command, you have to restart it (by pressing `ctrl + c` to stop it then `node server` to start it again) in order to see any changes or files added.
 
 ## Features pending
-- [] Custom theme
-- [] Layout support for smaller screen widths e.g: mobile screens (generated site currently optimized for larger screens only)
-- [] Addition of more markdown rules
-- [] Automatic server restart upon running the `node parser` command to reflect changes if server was already running
+-       [] Custom theme
+-       [] Layout support for smaller screen widths e.g: mobile screens (generated site currently optimized for larger screens only)
+-       [] Addition of more markdown rules
+-       [] Automatic server restart upon running the `node parser` command to reflect changes if server was already running
 
 ## Credits
 I would like to give credit to the authors of these two blog posts which help me to understand more on writing Regular Expressions:
