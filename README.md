@@ -38,15 +38,17 @@ First, some markdown files with content need to exist inside the `./pages` (for 
 After adding your markdown files, run `node parser` to generate its respective HTML file. The last thing left to do is to run `node server`. If the Node server was already running when you ran the `node parser` command, you have to restart it (by pressing `ctrl + c` to stop it then `node server` to start it again) in order to see any changes or files added.
 
 ## Features pending
-- [-] Custom theme
-- [-] Layout support for smaller screen widths e.g: mobile screens (generated site currently optimized for larger screens only)
-- [-] Addition of more markdown rules
-- [-] Automatic server restart upon running the `node parser` command to reflect changes if server was already running
+- [ ] Custom theme
+- [ ] Layout support for smaller screen widths e.g: mobile screens (generated site currently optimized for larger screens only)
+- [ ] Addition of more markdown rules
+- [ ] Automatic server restart upon running the `node parser` command to reflect changes if server was already running
 
 ## Credits
 I would like to give credit to the authors of these two blog posts which help me to understand more on writing Regular Expressions:
 + [Creating Your Own Markdown Parser](https://betterprogramming.pub/create-your-own-markdown-parser-bffb392a06db)
 + [How to write Regular Expressions?](https://www.geeksforgeeks.org/write-regular-expressions/)
+
+Also I would like to show appreciation for this [tool](https://regex101.com/) which helped me come up with some of the regex patterns.
 
 ## License
 
