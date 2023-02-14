@@ -24,19 +24,19 @@ const rules = [
 
   //highlights
   [
-    /\n^\`{3}\n([\s\S]*?\n+)\`{3}/gm,
-    '<div style="background-color:grey;color:white;text-decoration: none;border-radius: 3px;padding:1px 2px;"><code>$2</code></div>',
+    /^```([\s\S]*?)^```$/gm,
+    '<div class="py-1 px-2 bg-gray-500 rounded-sm"><code style="color:white;text-decoration: none;">$1</code></div>',
   ],
   [
     /[^`]`{1}(\s?[^\n`]+\s?)`{1}/g,
-    '<code style="background-color:grey;color:white;text-decoration: none;border-radius: 3px;padding:1px 2px;">$1</code>',
+    '<span><code style="background-color:grey;color:white;text-decoration: none;border-radius: 3px;padding:1px 2px;">$1</code></span>',
   ],
 
   // blockquote
-  // [
-  //   /\>\s?([^\n]+)/g,
-  //   "<blockquote class='p-4 my-4 border-l-4 border-gray-300 bg-gray-50'><p>$1</p></blockquote>",
-  // ],
+  [
+    /\n\>+\s?([^\n]+)/g,
+    "<blockquote class='p-4 my-4 border-l-4 border-gray-300 bg-gray-50'><p>$1</p></blockquote>",
+  ],
 
   //Lists
   [/\+\s?([^\n]+)/g, "<ul><li>• $1</li></ul>"],
@@ -49,13 +49,10 @@ const rules = [
   ],
 
   //links
-  [
-    /\[([^\n]+)\]\(([^\n]+)\)/g,
-    '<a href="$2" style="" class="text-blue-500">$1</a>',
-  ],
+  [/\[([^\n]+)\]\(([^\n]+)\)/g, '<a href="$2" class="text-blue-500">$1</a>'],
 
   //paragragh
-  [/([^\n]+\n?)/g, "<p>$1</p>"],
+  [/^.+[\r\n]+(\r?\n|$)/gm, "<p>$&</p>"],
 ];
 
 exports.rules = rules;

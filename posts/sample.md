@@ -6,9 +6,12 @@ __This should also be bold__ and *this should be in italics*
 This is a `code highlight`
 
 > blockquote text
+>>> blockquote text
 
 ```
-some more stuff happened
+var counter = 0;
+
+counter = counter + 1;
 ```
 
 + list item 1
