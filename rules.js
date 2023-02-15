@@ -22,11 +22,12 @@ const rules = [
   [/_{2}([^_]+)_{2}/g, "<b>$1</b>"],
   [/_([^_`]+)_/g, "<i>$1</i>"],
 
-  //highlights
+  //code block highlight
   [
     /^```([\s\S]*?)^```$/gm,
     '<div class="py-1 px-2 bg-gray-500 rounded-sm"><code style="color:white;text-decoration: none;">$1</code></div>',
   ],
+  //code highlight
   [
     /[^`]`{1}(\s?[^\n`]+\s?)`{1}/g,
     '<span><code style="background-color:grey;color:white;text-decoration: none;border-radius: 3px;padding:1px 2px;">$1</code></span>',
@@ -39,8 +40,8 @@ const rules = [
   ],
 
   //Lists
-  [/\+\s?([^\n]+)/g, "<ul><li>• $1</li></ul>"],
-  [/\*\s?([^\n]+)/g, "<ul><li>• $1</li></ul>"],
+  [/\n\+\s?([^\n]+)/g, "<ul><li>• $1</li></ul>"],
+  [/\n\*\s?([^\n]+)/g, "<ul><li>• $1</li></ul>"],
 
   //Image
   [
@@ -49,7 +50,7 @@ const rules = [
   ],
 
   //links
-  [/\[([^\n]+)\]\(([^\n]+)\)/g, '<a href="$2" class="text-blue-500">$1</a>'],
+  [/\[([^\n]+)\]\(([^\n]+)\)/g, '<span><a href="$2" class="text-blue-500">$1</a></span>'],
 
   //paragragh
   [/^.+[\r\n]+(\r?\n|$)/gm, "<p>$&</p>"],

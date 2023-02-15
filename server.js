@@ -86,6 +86,3 @@ fs.readdir("public/posts")
     console.error(`Could not read from the posts directory: ${err}`);
     process.exit(1);
   });
-
-exports.posts = posts;
-exports.pages = pages;

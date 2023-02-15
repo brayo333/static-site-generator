@@ -32,10 +32,37 @@ Finally, start the Node server locally using `node server` or `node server.js` c
 └── server.js
 ```
 
-## How it works/usage
+## Usage
+
+### Creating the markdown files
+
 First, some markdown files with content need to exist inside the `./pages` (for pages to be generated) or `./posts` (for articles/posts to be generated) folders for any of the HTML pages to be generated. If none exists, the `index.html` page generated will be a blank page containing only one link (to the Homepage). When adding your markdown files in either the `./pages` or `./posts` folders, use kebab-case (e.g: `kebab-case`) to name your files if the name has more than one word followed by the `.md` extension e.g: `file-name.md`.
 
-After adding your markdown files, run `node parser` to generate its respective HTML file. The last thing left to do is to run `node server`. If the Node server was already running when you ran the `node parser` command, you have to restart it (by pressing `ctrl + c` to stop it then `node server` to start it again) in order to see any changes or files added.
+### Generating the HTML files
+
+After adding your markdown files, run `node parser` to generate their respective HTML files.
+
+### Serving the files on a local Node.js server
+
+The last thing left to do is to run `node server`. If the Node server was already running when you ran the `node parser` command, you have to restart it (by pressing `ctrl + c` to stop it then `node server` to start it again) in order to see any changes or files added.
+
+## How it works
+
+### parser.js & rules.js
+
+The `parser.js` file has two main functions that handle writing the HTML files `loopDirectoryMDFiles()` and `writeIndexHTML()`. The former function handles searching for markdown files (files with the `.md` extension) in the specified directory (passed as an argument to the function) using a loop and converts the markdown file contents into HTML with the help of the regex patterns found inside `rules.js`. This function calls another function named `HTMLTemplate()` which uses the HTML contents which were converted from markdown and writes a HTML file using the contents which is then saved inside `./public/pages` (for pages) or `./public/posts` (for posts).
+
+The function is called twice. First, to search for the markdown files found in the pages folder (`./pages`) and the second time to search for files in the posts folder (`./posts`).
+
+The `writeIndexHTML()` function handles writing the `index.html` file (saved inside `./public` folder) which acts as the home page for the static site generated. It calls another function in the `parser.js` named `checkForFiles()` to assist in determining which links will exist when the server is running and adds the links (both for posts & pages) to the home page.
+
+Running the `node parser` or `node parser.js` command in a terminal runs the `parser.js` file.
+
+### server.js
+This is the file that handles the server, host, port number & serving up the HTML files that exist.
+
+Running the `node server` or `node server.js` command in a terminal runs the `server.js` file.
+
 
 ## Features pending
 - [ ] Custom theme
