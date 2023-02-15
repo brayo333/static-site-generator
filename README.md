@@ -9,7 +9,7 @@ This project has helped me learn about setting up a server in Node.js, navigatin
 ## Prerequisites
 + Node - v16.0.0 + (make sure to add the path to the nodejs application in your system environment variables so as to run the node command from anywhere when using the terminal)
 
-## Project setup
+## Project setup/Installation
 First clone the project using the following command `git clone https://github.com/brayo333/static-site-generator.git` in a terminal.
 
 Next, run `node parser` or `node parser.js` to generate the HTML files (index.html included) from any existing markdown files inside the `./pages` & `./posts` folders.
@@ -46,7 +46,7 @@ After adding your markdown files, run `node parser` to generate their respective
 
 ### Serving the files on a local Node.js server
 
-The last thing left to do is to run `node server`. If the Node server was already running when you ran the `node parser` command, you have to restart it (by pressing `ctrl + c` to stop it then `node server` to start it again) in order to see any changes or files added.
+The last thing left to do is to run `node server`. If the Node server was already running when you ran the `node parser` command, you have to restart it (by pressing `ctrl + c` to stop it then running `node server` to start it again) in order to see any changes or files added.
 
 ## How it works
 
@@ -72,16 +72,22 @@ The function is called twice. First, to search for the markdown files found in t
 
 The `writeIndexHTML()` function handles writing the `index.html` file (saved inside `./public` folder) which acts as the home page for the static site generated. It calls another function in the `parser.js` named `checkForFiles()` to assist in determining which links will exist when the server is running and adds the links (both for posts & pages) to the home page.
 
-Running the `node parser` or `node parser.js` command in a terminal runs the `parser.js` file.
+Running the `node parser` or `node parser.js` command in a terminal runs the `parser.js` file. You will see something similar to the image in the terminal:
+![Sample terminal message](https://objectstorageapi.brianmulaa.com/storage/1676455119_JLTCFM/1676455119_j7vA.jpg)
+
+If the `./public/pages/` folder and the `./public/posts/` do not exist the parser command will bring up an error. You need to create the `pages` & `posts` folder inside the `public` folder if they do NOT exist.
 
 ### server.js
 This is the file that handles the server, host, port number & serving up the HTML files that exist.
 
-Running the `node server` or `node server.js` command in a terminal runs the `server.js` file.
+Running the `node server` or `node server.js` command in a terminal runs the `server.js` file. You will see something similar to the image in the terminal:
+![Sample terminal message](https://objectstorageapi.brianmulaa.com/storage/1676455119_JLTCFM/1676455250_pWni.jpg)
 
+## Challenges faced
+The main challenge faced was coming up with efficient regex patterns to match with patterns in the markdown files.
 
 ## Features pending
-- [ ] Custom theme
+- [ ] Custom theme/templating system
 - [ ] Layout support for smaller screen widths e.g: mobile screens (generated site currently optimized for larger screens only)
 - [ ] Addition of more markdown rules
 - [ ] Automatic server restart upon running the `node parser` command to reflect changes if server was already running
