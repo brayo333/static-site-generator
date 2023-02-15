@@ -2,6 +2,8 @@
 
 This repository contains source code of a static site generator that looks for markdown files in a directory and converts their contents into HTML which is then used when creating the HTML files using JavaScript (Node.js).
 
+I used JavaScript for this project because I have never done file/folder reading in Node.js and never created a server using Node.js and I thought it would be interesting to learn it through this project.
+
 This project has helped me learn about setting up a server in Node.js, navigating through files and folders in Node.js, working with async/await JavaScript functions & working with regular expressions (Regex).
 
 ## Prerequisites
@@ -48,7 +50,21 @@ The last thing left to do is to run `node server`. If the Node server was alread
 
 ## How it works
 
-### parser.js & rules.js
+### rules.js
+This file contains regex patterns for the following:
++ Heading tags (H1 to H6)
++ Bold tags
++ Italics tags
++ Code block highlights
++ Code highlight tags
++ Blockquote tags
++ Unordered list tags
++ Image tags
++ Links tags
++ Paragraph tags
+
+
+### parser.js
 
 The `parser.js` file has two main functions that handle writing the HTML files `loopDirectoryMDFiles()` and `writeIndexHTML()`. The former function handles searching for markdown files (files with the `.md` extension) in the specified directory (passed as an argument to the function) using a loop and converts the markdown file contents into HTML with the help of the regex patterns found inside `rules.js`. This function calls another function named `HTMLTemplate()` which uses the HTML contents which were converted from markdown and writes a HTML file using the contents which is then saved inside `./public/pages` (for pages) or `./public/posts` (for posts).
 

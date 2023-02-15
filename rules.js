@@ -1,18 +1,18 @@
 const rules = [
   //header rules
-  [/#{6}\s?([^\n]+)/g, "<h6 class='mb-3 font-medium'>$1</h6>"],
-  [/#{5}\s?([^\n]+)/g, "<h5 class='mb-3 text-lg font-medium'>$1</h5>"],
-  [/#{4}\s?([^\n]+)/g, "<h4 class='mb-3 text-xl font-medium'>$1</h4>"],
+  [/^#{6}\s?([^\n]+)/gm, "<h6 class='mb-3 font-medium'>$1</h6>"],
+  [/^#{5}\s?([^\n]+)/gm, "<h5 class='mb-3 text-lg font-medium'>$1</h5>"],
+  [/^#{4}\s?([^\n]+)/gm, "<h4 class='mb-3 text-xl font-medium'>$1</h4>"],
   [
-    /#{3}\s?([^\n]+)/g,
+    /^#{3}\s?([^\n]+)/gm,
     "<h3 class='mb-3 capitalize text-2xl font-medium'>$1</h3>",
   ],
   [
-    /#{2}\s?([^\n]+)/g,
+    /^#{2}\s?([^\n]+)/gm,
     "<h2 class='mb-5 capitalize text-3xl font-medium'>$1</h2>",
   ],
   [
-    /#{1}\s?([^\n]+)/g,
+    /^#{1}\s?([^\n]+)/gm,
     "<h1 class='mb-5 capitalize text-4xl font-medium'>$1</h1>",
   ],
 
@@ -25,7 +25,7 @@ const rules = [
   //code block highlight
   [
     /^```([\s\S]*?)^```$/gm,
-    '<div class="py-1 px-2 bg-gray-500 rounded-sm"><code style="color:white;text-decoration: none;">$1</code></div>',
+    '<div class="py-1 px-2 bg-gray-500 rounded-sm"><code style="color:white;text-decoration: none;">$1</code></div><br />',
   ],
   //code highlight
   [
