@@ -74,6 +74,8 @@ The `writeIndexHTML()` function handles writing the `index.html` file (saved ins
 
 Running the `node parser` or `node parser.js` command in a terminal runs the `parser.js` file. You will see something similar to the image in the terminal:
 
+<br/>
+
 ![Sample terminal message](https://objectstorageapi.brianmulaa.com/storage/1676455119_JLTCFM/1676455119_j7vA.jpg)
 
 If the `./public/pages/` folder and the `./public/posts/` do not exist the parser command will bring up an error. You need to create the `pages` & `posts` folder inside the `public` folder if they do NOT exist.
@@ -82,6 +84,8 @@ If the `./public/pages/` folder and the `./public/posts/` do not exist the parse
 This is the file that handles the server, host, port number & serving up the HTML files that exist.
 
 Running the `node server` or `node server.js` command in a terminal runs the `server.js` file. You will see something similar to the image in the terminal:
+
+<br/>
 
 ![Sample terminal message](https://objectstorageapi.brianmulaa.com/storage/1676455119_JLTCFM/1676455250_pWni.jpg)
 
